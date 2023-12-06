@@ -1,0 +1,22 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+name = "Lear Test 2"
+client_id = "38788b8d7dbb10f62d5f38499c0e4607"
+application_url = "https://0b40-49-37-162-160.ngrok-free.app/install/shopify"
+embedded = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+use_legacy_install_flow = true
+
+[auth]
+redirect_urls = [ "https://0b40-49-37-162-160.ngrok-free.app/api/auth" ]
+
+[webhooks]
+api_version = "2023-10"
+
+[pos]
+embedded = false
+
+[build]
+dev_store_url = "test-chat-app-store.myshopify.com"

@@ -1,0 +1,74 @@
+<div class="iframe-container" id="iframe-container">
+  <iframe src="https://ourapp12.netlify.app/" title="Our App" id="chat-iframe"></iframe>
+</div>
+
+<script>
+  function listenForIframeMessages(event) {
+    if (event.origin !== "https://ourapp12.netlify.app") {
+      return;
+    }
+    const iframeContainer = document.getElementById('iframe-container');
+    const chatIframe = document.getElementById('chat-iframe');
+
+    if (event.data === 'expand') {
+      iframeContainer.style.transition = "width 0.3s ease-in-out, height 0.3s ease-in-out, border-radius 0s, box-shadow 0.3s ease-in-out";
+      const isSmallScreen = window.innerWidth < 1000;
+      iframeContainer.style.width = isSmallScreen ? '85%' : '360px';
+      iframeContainer.style.height = isSmallScreen ? '90%' : '800px';
+      iframeContainer.style.right = isSmallScreen ? '24px' : '24px';
+      iframeContainer.style.bottom = isSmallScreen ? '24px' : '24px';
+      iframeContainer.style.maxWidth = isSmallScreen ? 'none' : 'calc(100% - 100px)';
+      iframeContainer.style.maxHeight = isSmallScreen ? 'none' : 'calc(100% - 100px)';
+      iframeContainer.style.borderRadius = isSmallScreen ? '30px' : '30px';
+      iframeContainer.style.boxShadow = isSmallScreen ? '0px 8px 15px rgba(0, 0, 0, 0.25)' : '0px 8px 15px rgba(0, 0, 0, 0.25)';
+
+    } else if (event.data === 'collapse') {
+      const isSmallScreen = window.innerWidth < 1000;
+      iframeContainer.style.transition = "width 0.3s ease-in-out, height 0.3s ease-in-out, box-shadow 0.3s ease-in-out";
+      iframeContainer.style.width = '40px';
+      iframeContainer.style.height = '40px';
+      iframeContainer.style.maxWidth = 'initial';
+      iframeContainer.style.maxHeight = 'initial';
+      iframeContainer.style.borderRadius = isSmallScreen ? '30px' : '30px';
+      iframeContainer.style.bottom = '24px';
+      iframeContainer.style.right = '24px';
+      iframeContainer.style.boxShadow = '0px 8px 15px rgba(0, 0, 0, 0.25)';
+      setTimeout(() => {
+          iframeContainer.style.borderRadius = '50%';
+        }, 300);
+    }
+  }
+
+  window.addEventListener('message', listenForIframeMessages, false);
+</script>
+
+<style>
+  .iframe-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.25);
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out,
+      max-width 0.3s ease-in-out, max-height 0.3s ease-in-out,
+      box-shadow 0.3s ease-in-out,
+      bottom 0.3s ease-in-out, right 0.3s ease-in-out;
+  }
+
+  #chat-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+</style>
+
+{% schema %}
+{
+"name": "App Embed",
+"target": "head",
+"settings": []
+}
+{% endschema %}
